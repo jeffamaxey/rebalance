@@ -129,12 +129,12 @@ class Portfolio:
             1., total_value
         )  # protect against division by 0 (total_value = 0, means new portfolio)
 
-        asset_allocation = {}
-        for name, asset in self._assets.items():
-            asset_allocation[name] = asset.market_value_in(
-                self._common_currency) / total_value * 100.
-
-        return asset_allocation
+        return {
+            name: asset.market_value_in(self._common_currency)
+            / total_value
+            * 100.0
+            for name, asset in self._assets.items()
+        }
 
     def market_value(self, currency):
         """
